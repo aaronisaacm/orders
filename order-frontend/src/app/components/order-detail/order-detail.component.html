@@ -1,0 +1,64 @@
+<div class="order-detail-container">
+  @if (loading()) {
+    <div class="loading">
+      <p>Cargando pedido...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error">
+      <p>{{ error() }}</p>
+      <a routerLink="/orders" class="back-button">Volver a la lista</a>
+    </div>
+  } @else if (order()) {
+    <div class="order-detail">
+      <header class="detail-header">
+        <a routerLink="/orders" class="back-link">← Volver a la lista</a>
+        <h1>Pedido #{{ order()!.id }}</h1>
+      </header>
+
+      <div class="order-info">
+        <div class="info-section">
+          <h2>Información del Cliente</h2>
+          <p><strong>Nombre:</strong> {{ order()!.customerName }}</p>
+          <p><strong>Fecha de creación:</strong> {{ formatDate(order()!.createdAt) }}</p>
+        </div>
+
+        <div class="items-section">
+          <h2>Items del Pedido</h2>
+          @if (order()!.items.length === 0) {
+            <p class="no-items">No hay items en este pedido</p>
+          } @else {
+            <table class="items-table">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of order()!.items; track item.sku) {
+                  <tr>
+                    <td>{{ item.sku }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.unitPrice | number:'1.2-2' }} €</td>
+                    <td>{{ calculateItemTotal(item) | number:'1.2-2' }} $</td>
+                  </tr>
+                }
+              </tbody>
+              <tfoot>
+                <tr class="total-row">
+                  <td colspan="4"><strong>Total del Pedido</strong></td>
+                  <td><strong>{{ calculateOrderTotal() | number:'1.2-2' }} $</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
+

@@ -1,0 +1,47 @@
+<div class="order-list-container">
+  <header class="header">
+    <h1>Lista de Pedidos</h1>
+    @if (isStreaming()) {
+      <div class="stream-indicator">
+        <span class="stream-dot"></span>
+        <span>Conectado en tiempo real</span>
+      </div>
+    }
+  </header>
+
+  @if (loading()) {
+    <div class="loading">
+      <p>Cargando pedidos...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error">
+      <p>{{ error() }}</p>
+      <button (click)="loadOrders()">Reintentar</button>
+    </div>
+  } @else if (orders().length === 0) {
+    <div class="empty">
+      <p>No hay pedidos disponibles</p>
+    </div>
+  } @else {
+    <div class="orders-grid">
+      @for (order of orders(); track order.id) {
+        <a [routerLink]="['/orders', order.id]" class="order-card">
+          <div class="order-header">
+            <h2>Pedido #{{ order.id }}</h2>
+            <span class="order-date">{{ formatDate(order.createdAt) }}</span>
+          </div>
+          <div class="order-customer">
+            <strong>Cliente:</strong> {{ order.customerName }}
+          </div>
+          <div class="order-items">
+            <strong>Items:</strong> {{ order.items.length }}
+          </div>
+          <div class="order-total">
+            <strong>Total:</strong> {{ calculateTotal(order) | number:'1.2-2' }} $
+          </div>
+        </a>
+      }
+    </div>
+  }
+</div>
+
