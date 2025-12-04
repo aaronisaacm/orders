@@ -1,0 +1,84 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FD72DE71-C7A9-1AAE-A3EC-90C4EE2F70F9}|..\\WebOrders.API\\WebOrders.API.csproj|c:\\users\\aaron.isaac\\documents\\develop\\orders\\order-backend\\weborders.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CF2036A-5CCB-FD69-2946-680B9E57B2B3}|..\\WebOrders.Service\\WebOrders.Service.csproj|c:\\users\\aaron.isaac\\documents\\develop\\orders\\order-backend\\weborders.service\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{831AD18C-FF85-4A44-E8ED-FB67A764F763}|..\\WebOrders.Data\\WebOrders.Data.csproj|c:\\users\\aaron.isaac\\documents\\develop\\orders\\order-backend\\weborders.data\\migrations\\20251126183031_initialcreate.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{831AD18C-FF85-4A44-E8ED-FB67A764F763}|..\\WebOrders.Data\\WebOrders.Data.csproj|c:\\users\\aaron.isaac\\documents\\develop\\orders\\order-backend\\weborders.data\\data\\seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\Services\\OrderService.cs",
+              "RelativeDocumentMoniker": "..\\WebOrders.Service\\Services\\OrderService.cs",
+              "ToolTip": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\Services\\OrderService.cs",
+              "RelativeToolTip": "..\\WebOrders.Service\\Services\\OrderService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T18:38:35.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20251126183031_InitialCreate.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\Migrations\\20251126183031_InitialCreate.Designer.cs",
+              "RelativeDocumentMoniker": "..\\WebOrders.Data\\Migrations\\20251126183031_InitialCreate.Designer.cs",
+              "ToolTip": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\Migrations\\20251126183031_InitialCreate.Designer.cs",
+              "RelativeToolTip": "..\\WebOrders.Data\\Migrations\\20251126183031_InitialCreate.Designer.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T18:33:26.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SeedData.cs",
+              "DocumentMoniker": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\Data\\SeedData.cs",
+              "RelativeDocumentMoniker": "..\\WebOrders.Data\\Data\\SeedData.cs",
+              "ToolTip": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\Data\\SeedData.cs",
+              "RelativeToolTip": "..\\WebOrders.Data\\Data\\SeedData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T18:32:48.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.API\\Program.cs",
+              "RelativeDocumentMoniker": "..\\WebOrders.API\\Program.cs",
+              "ToolTip": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.API\\Program.cs*",
+              "RelativeToolTip": "..\\WebOrders.API\\Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T18:29:07.325Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

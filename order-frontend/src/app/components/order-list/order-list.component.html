@@ -1,12 +1,22 @@
 <div class="order-list-container">
   <header class="header">
-    <h1>Lista de Pedidos</h1>
-    @if (isStreaming()) {
-      <div class="stream-indicator">
-        <span class="stream-dot"></span>
-        <span>Conectado en tiempo real</span>
+    <div class="header-content">
+      <h1>Lista de Pedidos</h1>
+      <div class="header-actions">
+        @if (isStreaming()) {
+          <div class="stream-indicator">
+            <span class="stream-dot"></span>
+            <span>Conectado en tiempo real</span>
+          </div>
+        }
+        @if (getUsername()) {
+          <div class="user-info">
+            <span>Usuario: {{ getUsername() }}</span>
+            <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+          </div>
+        }
       </div>
-    }
+    </div>
   </header>
 
   @if (loading()) {

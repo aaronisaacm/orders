@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../WebOrders.API/WebOrders.API.csproj" />
+  <Project Path="../WebOrders.Data/WebOrders.Data.csproj" />
+  <Project Path="../WebOrders.Service/WebOrders.Service.csproj" />
+</Solution>

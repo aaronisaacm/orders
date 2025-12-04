@@ -1,0 +1,16 @@
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.csproj.AssemblyReference.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.AssemblyInfoInputs.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.AssemblyInfo.cs
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.csproj.CoreCompileInputs.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.sourcelink.json
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\bin\Debug\net10.0\WebOrders.Service.deps.json
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\bin\Debug\net10.0\WebOrders.Service.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\bin\Debug\net10.0\WebOrders.Service.pdb
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\bin\Debug\net10.0\WebOrders.Data.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\bin\Debug\net10.0\WebOrders.Data.pdb
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrder.F349D016.Up2Date
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\refint\WebOrders.Service.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\WebOrders.Service.pdb
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Service\obj\Debug\net10.0\ref\WebOrders.Service.dll

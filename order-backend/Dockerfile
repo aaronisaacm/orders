@@ -3,17 +3,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copiar archivos del proyecto
-COPY *.csproj ./
-RUN dotnet restore
+# Copiar archivos .csproj de todos los proyectos para restaurar dependencias
+COPY WebOrders.API/WebOrders.API.csproj WebOrders.API/
+COPY WebOrders.Data/WebOrders.Data.csproj WebOrders.Data/
+COPY WebOrders.Service/WebOrders.Service.csproj WebOrders.Service/
+RUN dotnet restore WebOrders.API/WebOrders.API.csproj
 
 # Copiar el resto de los archivos y compilar
 COPY . ./
-RUN dotnet build -c Release -o /app/build
+RUN dotnet build WebOrders.API/WebOrders.API.csproj -c Release -o /app/build
 
 # Stage 2: Publish
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish WebOrders.API/WebOrders.API.csproj -c Release -o /app/publish
 
 # Stage 3: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
@@ -40,5 +42,4 @@ ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Punto de entrada
-ENTRYPOINT ["dotnet", "WebOrders.dll"]
-
+ENTRYPOINT ["dotnet", "WebOrders.API.dll"]

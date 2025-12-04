@@ -11,6 +11,8 @@ A RESTful API for managing orders and order items built with ASP.NET Core and SQ
 - **Streaming Support**: Real-time order streaming via Server-Sent Events (SSE)
 - **JSON Storage**: Order items stored as JSON in SQLite for flexibility
 - **Auto Seeding**: Sample data automatically loaded on first run
+- **CORS Enabled**: Cross-origin requests allowed for all origins
+- **Docker Support**: Containerized deployment with Docker Compose
 
 ## Prerequisites
 
@@ -24,10 +26,16 @@ A RESTful API for managing orders and order items built with ASP.NET Core and SQ
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd order-bancked
+cd order-backend
 ```
 
 2. Restore dependencies:
+```bash
+cd WebOrders.API
+dotnet restore
+```
+
+Or restore all projects:
 ```bash
 dotnet restore
 ```
@@ -52,8 +60,11 @@ Example connection string:
 
 ### Running the Application
 
-Run the application:
+#### Local Development
+
+Run the application from the `WebOrders.API` directory:
 ```bash
+cd WebOrders.API
 dotnet run
 ```
 
@@ -64,12 +75,24 @@ On first run, the application will:
 2. Run migrations to create the schema
 3. Seed the database with sample orders
 
+#### Docker Deployment
+
+For Docker deployment, see the main [README.md](../README.md) in the parent directory for Docker Compose setup instructions.
+
+When running in Docker, the API is available at `http://localhost:8080`.
+
 ## API Documentation
 
 ### Base URL
 
+**Local Development:**
 ```
 http://localhost:5000
+```
+
+**Docker Deployment:**
+```
+http://localhost:8080
 ```
 
 ### Health Check
@@ -429,11 +452,12 @@ An unexpected server error occurred.
 
 - **.NET 10.0**: Runtime and framework
 - **ASP.NET Core**: Web framework
-- **Entity Framework Core 10.0**: ORM and database access
+- **Entity Framework Core 9.0.1**: ORM and database access
 - **SQLite**: Database engine
 - **Memory Caching**: Performance optimization
 - **Rate Limiting**: API protection
 - **Health Checks**: Monitoring and diagnostics
+- **CORS**: Cross-origin resource sharing enabled for all origins
 
 ---
 
@@ -451,34 +475,67 @@ The application uses SQLite with Entity Framework Core. The database file (`orde
 
 ### Migrations
 
-To create or update the database schema:
+To create or update the database schema, navigate to the `WebOrders.API` directory and run:
 
 ```bash
-dotnet ef migrations add <MigrationName>
-dotnet ef database update
+cd WebOrders.API
+dotnet ef migrations add <MigrationName> --project ../WebOrders.Data
+dotnet ef database update --project ../WebOrders.Data
 ```
 
 ---
+
+## Docker Deployment
+
+This project includes Docker support for containerized deployment. The Dockerfile uses a multi-stage build to optimize the image size.
+
+### Building the Docker Image
+
+From the `order-backend` directory:
+
+```bash
+docker build -t weborders-backend .
+```
+
+### Running with Docker Compose
+
+For a complete setup including frontend, see the main [README.md](../README.md) in the parent directory.
+
+The backend service in Docker Compose:
+- Exposes port `8080`
+- Uses a persistent volume for SQLite database at `/app/data/orders.db`
+- Includes health checks
+- Automatically seeds data on first run
 
 ## Development
 
 ### Project Structure
 
 ```
-order-bancked/
-├── Context/
-│   └── OrderDbContext.cs          # EF Core DbContext
-├── Data/
-│   └── SeedData.cs                # Initial data seeding
-├── Migrations/                     # EF Core migrations
-├── Models/
-│   ├── Order.cs                   # Order model
-│   └── OrderItem.cs               # OrderItem model
-├── Services/
-│   ├── IOrderService.cs           # Service interface
-│   └── OrderService.cs            # Service implementation
-├── Program.cs                      # Application entry point
-└── WebOrders.csproj               # Project file
+order-backend/
+├── WebOrders.API/                  # Main API project
+│   ├── Program.cs                  # Application entry point
+│   ├── appsettings.json            # Configuration
+│   ├── appsettings.Development.json
+│   └── WebOrders.API.csproj
+├── WebOrders.Data/                  # Data access layer
+│   ├── Context/
+│   │   └── OrderDbContext.cs       # EF Core DbContext
+│   ├── Data/
+│   │   └── SeedData.cs             # Initial data seeding
+│   ├── Migrations/                  # EF Core migrations
+│   ├── Models/
+│   │   ├── Order.cs                # Order model
+│   │   └── OrderItem.cs            # OrderItem model
+│   └── WebOrders.Data.csproj
+├── WebOrders.Service/               # Business logic layer
+│   ├── Interfaces/
+│   │   └── IOrderService.cs        # Service interface
+│   ├── Services/
+│   │   └── OrderService.cs         # Service implementation
+│   └── WebOrders.Service.csproj
+├── Dockerfile                       # Docker build configuration
+└── README.md                        # This file
 ```
 
 ### Testing the API
@@ -502,4 +559,3 @@ You can test the API using:
 ## Author
 
 [Your name/organization]
-

@@ -1,0 +1,61 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1>Login</h1>
+    <p class="subtitle">Please enter your credentials to access the Orders API</p>
+    
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Enter username"
+          required
+          autocomplete="username"
+          [disabled]="isLoading()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter password"
+          required
+          autocomplete="current-password"
+          [disabled]="isLoading()"
+        />
+      </div>
+
+      @if (error()) {
+        <div class="error-message">
+          {{ error() }}
+        </div>
+      }
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="isLoading()"
+      >
+        @if (isLoading()) {
+          <span>Logging in...</span>
+        } @else {
+          <span>Login</span>
+        }
+      </button>
+    </form>
+
+    <div class="info-box">
+      <p><strong>Default credentials:</strong></p>
+      <p>Username: <code>admin</code></p>
+      <p>Password: <code>password</code></p>
+    </div>
+  </div>
+</div>
+

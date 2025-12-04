@@ -1,0 +1,15 @@
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.csproj.AssemblyReference.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.AssemblyInfoInputs.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.AssemblyInfo.cs
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.csproj.CoreCompileInputs.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.sourcelink.json
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\bin\Debug\net10.0\WebOrders.Data.deps.json
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\bin\Debug\net10.0\WebOrders.Data.runtimeconfig.json
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\bin\Debug\net10.0\WebOrders.Data.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\bin\Debug\net10.0\WebOrders.Data.pdb
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\refint\WebOrders.Data.dll
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.pdb
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\WebOrders.Data.genruntimeconfig.cache
+C:\Users\aaron.isaac\Documents\develop\Orders\order-backend\WebOrders.Data\obj\Debug\net10.0\ref\WebOrders.Data.dll

@@ -2,6 +2,7 @@ import { Component, signal, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { OrderService } from '../../services/order.service';
+import { AuthService } from '../../services/auth.service';
 import { Order } from '../../models/Order';
 import { Subscription } from 'rxjs';
 
@@ -14,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class OrderListComponent implements OnDestroy {
   private orderService = inject(OrderService);
+  private authService = inject(AuthService);
   private streamSubscription?: Subscription;
   private reconnectTimeout?: ReturnType<typeof setTimeout>;
   private isDestroyed = false;
@@ -102,6 +104,14 @@ export class OrderListComponent implements OnDestroy {
 
   calculateTotal(order: Order): number {
     return order.items.reduce((total, item) => total + (item.quantity * item.unitPrice), 0);
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
+
+  getUsername(): string | null {
+    return this.authService.username();
   }
 }
 
