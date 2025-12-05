@@ -8,6 +8,7 @@ using WebOrders.Data.Data;
 using WebOrders.API.Endpoints;
 using WebOrders.API.Mappings;
 using WebOrders.API.Authentication;
+using WebOrders.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,6 +73,9 @@ builder.Services
         name: "sqlite");
 
 var app = builder.Build();
+
+// Global exception handler (should be registered early in the pipeline)
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 // Seed data
 using (var scope = app.Services.CreateScope())
