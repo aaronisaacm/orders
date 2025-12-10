@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebOrders.Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5775a1a25b064f498db5738c48a4661dfcb5b34e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+080217f38a728e219ca1e40305dc240aaa0f23c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebOrders.Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebOrders.Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

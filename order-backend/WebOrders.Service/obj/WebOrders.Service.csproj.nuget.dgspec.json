@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj": {}
+    "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj": {
+    "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj",
+        "projectUniqueName": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj",
         "projectName": "WebOrders.Data",
-        "projectPath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj",
+        "projectPath": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj",
         "packagesPath": "C:\\Users\\aaron.isaac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\obj\\",
+        "outputPath": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -360,14 +360,14 @@
         }
       }
     },
-    "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj": {
+    "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj",
+        "projectUniqueName": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj",
         "projectName": "WebOrders.Service",
-        "projectPath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj",
+        "projectPath": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj",
         "packagesPath": "C:\\Users\\aaron.isaac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\obj\\",
+        "outputPath": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -389,8 +389,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj": {
-                "projectPath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj"
+              "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj": {
+                "projectPath": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Data\\WebOrders.Data.csproj"
               }
             }
           }

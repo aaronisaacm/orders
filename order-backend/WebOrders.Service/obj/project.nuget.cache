@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6yuxca/ahIk=",
+  "dgSpecHash": "i9OJSbKd8ac=",
   "success": true,
-  "projectFilePath": "C:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj",
+  "projectFilePath": "c:\\Users\\aaron.isaac\\Documents\\develop\\Orders\\order-backend\\WebOrders.Service\\WebOrders.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aaron.isaac\\.nuget\\packages\\microsoft.data.sqlite.core\\9.0.1\\microsoft.data.sqlite.core.9.0.1.nupkg.sha512",
     "C:\\Users\\aaron.isaac\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",

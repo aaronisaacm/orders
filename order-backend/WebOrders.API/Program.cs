@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<OrderDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("Orders")
-                           ?? "Data Source=/app/data/orders.db";  //"Data Source=orders.db";
+                           ?? "Data Source=orders.db"; //"Data Source=/app/data/orders.db";
     options.UseSqlite(connectionString);
 });
 
@@ -69,12 +69,12 @@ builder.Services.AddRateLimiter(options =>
 builder.Services
     .AddHealthChecks()
     .AddSqlite(
-        connectionString: builder.Configuration.GetConnectionString("Orders") ?? "Data Source=/app/data/orders.db",
+        connectionString: builder.Configuration.GetConnectionString("Orders") ?? "Data Source=orders.db", //"Data Source=/app/data/orders.db";,
         name: "sqlite");
 
 var app = builder.Build();
 
-// Global exception handler (should be registered early in the pipeline)
+// Global exception handler
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 // Seed data
