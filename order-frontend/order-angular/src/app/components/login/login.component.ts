@@ -36,16 +36,22 @@ export class LoginComponent {
     }
 
     // Attempt login
-    const success = this.authService.login(username, password);
-
-    if (success) {
-      // Navigate to orders page
-      this.router.navigate(['/orders']);
-    } else {
-      this.error.set('Login failed. Please try again.');
-    }
-
-    this.isLoading.set(false);
+    this.authService.login(username, password).subscribe({
+      next: (success) => {
+        this.isLoading.set(false);
+        if (success) {
+          // Navigate to orders page
+          this.router.navigate(['/orders']);
+        } else {
+          this.error.set('Login failed. Please try again.');
+        }
+      },
+      error: (error) => {
+        this.isLoading.set(false);
+        this.error.set('Login failed. Invalid username or password.');
+        console.error('Login error:', error);
+      }
+    });
   }
 }
 

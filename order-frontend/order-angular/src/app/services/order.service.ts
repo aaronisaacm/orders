@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Order } from '../models/Order';
 import { CreateOrderRequest } from '../models/CreateOrderRequest';
 import { UpdateOrderRequest } from '../models/UpdateOrderRequest';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,37 @@ import { UpdateOrderRequest } from '../models/UpdateOrderRequest';
 export class OrderService {
   private readonly baseUrl = (typeof window !== 'undefined' && (window as any).__API_URL__) 
     ? `${(window as any).__API_URL__}/orders`
-    : 'http://localhost:5076/orders';
-  private readonly httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
+    : 'http://localhost:5146/orders';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  /**
+   * Get HTTP options with authentication headers
+   */
+  private getHttpOptions(): { headers: HttpHeaders } {
+    const headers: { [key: string]: string } = {
+      'Content-Type': 'application/json'
+    };
+
+    const authHeader = this.authService.getAuthHeader();
+    if (authHeader) {
+      headers['Authorization'] = authHeader;
+    }
+
+    return {
+      headers: new HttpHeaders(headers)
+    };
+  }
 
   /**
    * Retrieve all orders
    * @returns Observable<Order[]> List of all orders
    */
   getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.baseUrl);
+    return this.http.get<Order[]>(this.baseUrl, this.getHttpOptions());
   }
 
   /**
@@ -34,7 +51,7 @@ export class OrderService {
    * @returns Observable<Order> The order
    */
   getOrderById(id: number): Observable<Order> {
-    return this.http.get<Order>(`${this.baseUrl}/${id}`);
+    return this.http.get<Order>(`${this.baseUrl}/${id}`, this.getHttpOptions());
   }
 
   /**
@@ -43,7 +60,7 @@ export class OrderService {
    * @returns Observable<Order> The created order with generated ID and createdAt
    */
   createOrder(order: CreateOrderRequest): Observable<Order> {
-    return this.http.post<Order>(this.baseUrl, order, this.httpOptions);
+    return this.http.post<Order>(this.baseUrl, order, this.getHttpOptions());
   }
 
   /**
@@ -53,7 +70,7 @@ export class OrderService {
    * @returns Observable<Order> The updated order
    */
   updateOrder(id: number, order: UpdateOrderRequest): Observable<Order> {
-    return this.http.put<Order>(`${this.baseUrl}/${id}`, order, this.httpOptions);
+    return this.http.put<Order>(`${this.baseUrl}/${id}`, order, this.getHttpOptions());
   }
 
   /**
@@ -62,7 +79,7 @@ export class OrderService {
    * @returns Observable<void>
    */
   deleteOrder(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, this.getHttpOptions());
   }
 
   /**
@@ -71,27 +88,97 @@ export class OrderService {
    */
   streamOrders(): Observable<Order[]> {
     return new Observable<Order[]>(observer => {
-      const eventSource = new EventSource(`${this.baseUrl}/stream`);
+      const httpOptions = this.getHttpOptions();
+      
+      // Convert HttpHeaders to plain object for fetch
+      const headers: { [key: string]: string } = {};
+      httpOptions.headers.keys().forEach(key => {
+        const value = httpOptions.headers.get(key);
+        if (value) {
+          headers[key] = value;
+        }
+      });
+      
+      // Add Accept header for SSE
+      headers['Accept'] = 'text/event-stream';
 
-      eventSource.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          // Handle both single order and array of orders
-          const orders: Order[] = Array.isArray(data) ? data : [data];
-          observer.next(orders);
-        } catch (error) {
+      let abortController: AbortController | null = new AbortController();
+      let reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
+
+      fetch(`${this.baseUrl}/stream`, {
+        method: 'GET',
+        headers: headers,
+        signal: abortController.signal
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        if (!response.body) {
+          throw new Error('ReadableStream not supported');
+        }
+
+        reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        const processStream = (): Promise<void> => {
+          if (!reader) {
+            return Promise.resolve();
+          }
+
+          return reader.read().then(({ done, value }) => {
+            if (done) {
+              observer.complete();
+              return Promise.resolve();
+            }
+
+            // Decode the chunk and add to buffer
+            buffer += decoder.decode(value, { stream: true });
+
+            // Process complete lines (SSE format: "data: {...}\n\n")
+            const lines = buffer.split('\n\n');
+            buffer = lines.pop() || ''; // Keep incomplete line in buffer
+
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                try {
+                  const jsonData = line.substring(6); // Remove "data: " prefix
+                  const data = JSON.parse(jsonData);
+                  // Handle both single order and array of orders
+                  const orders: Order[] = Array.isArray(data) ? data : [data];
+                  observer.next(orders);
+                } catch (error) {
+                  console.error('Error parsing SSE data:', error);
+                  observer.error(error);
+                }
+              }
+            }
+
+            // Continue reading
+            return processStream();
+          });
+        };
+
+        return processStream();
+      })
+      .catch(error => {
+        if (error.name !== 'AbortError') {
           observer.error(error);
         }
-      };
-
-      eventSource.onerror = (error) => {
-        observer.error(error);
-        eventSource.close();
-      };
+      });
 
       // Cleanup function
       return () => {
-        eventSource.close();
+        if (abortController) {
+          abortController.abort();
+          abortController = null;
+        }
+        if (reader) {
+          reader.cancel();
+          reader = null;
+        }
       };
     });
   }

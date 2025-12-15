@@ -3,55 +3,143 @@
     <div class="header-content">
       <h1>Lista de Pedidos</h1>
       <div class="header-actions">
+        <!-- New Create Order Button -->
+        <button class="create-button" (click)="openCreateModal()">
+          <i class="fa fa-plus"></i> Nuevo Pedido
+        </button>
+
         @if (isStreaming()) {
-          <div class="stream-indicator">
-            <span class="stream-dot"></span>
-            <span>Conectado en tiempo real</span>
-          </div>
+        <div class="stream-indicator">
+          <span class="stream-dot"></span>
+          <span>Conectado en tiempo real</span>
+        </div>
         }
         @if (getUsername()) {
-          <div class="user-info">
-            <span>Usuario: {{ getUsername() }}</span>
-            <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
-          </div>
+        <div class="user-info">
+          <span>Usuario: {{ getUsername() }}</span>
+          <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+        </div>
         }
       </div>
     </div>
   </header>
 
-  @if (loading()) {
-    <div class="loading">
-      <p>Cargando pedidos...</p>
-    </div>
-  } @else if (error()) {
-    <div class="error">
-      <p>{{ error() }}</p>
-      <button (click)="loadOrders()">Reintentar</button>
-    </div>
+  @if (loading() && !isModalOpen()) {
+  <div class="loading">
+    <p>Cargando pedidos...</p>
+  </div>
+  } @else if (error() && !isModalOpen()) {
+  <div class="error">
+    <p>{{ error() }}</p>
+    <button (click)="loadOrders()">Reintentar</button>
+  </div>
   } @else if (orders().length === 0) {
-    <div class="empty">
-      <p>No hay pedidos disponibles</p>
-    </div>
+  <div class="empty">
+    <p>No hay pedidos disponibles</p>
+    <button class="btn-primary" (click)="openCreateModal()">Crear primer pedido</button>
+  </div>
   } @else {
-    <div class="orders-grid">
-      @for (order of orders(); track order.id) {
-        <a [routerLink]="['/orders', order.id]" class="order-card">
-          <div class="order-header">
-            <h2>Pedido #{{ order.id }}</h2>
-            <span class="order-date">{{ formatDate(order.createdAt) }}</span>
-          </div>
-          <div class="order-customer">
-            <strong>Cliente:</strong> {{ order.customerName }}
-          </div>
-          <div class="order-items">
-            <strong>Items:</strong> {{ order.items.length }}
-          </div>
-          <div class="order-total">
-            <strong>Total:</strong> {{ calculateTotal(order) | number:'1.2-2' }} $
-          </div>
-        </a>
-      }
-    </div>
+  <div class="orders-grid">
+    @for (order of orders(); track order.id) {
+    <a [routerLink]="['/orders', order.id]" class="order-card">
+      <div class="card-actions">
+        <button class="icon-btn edit-btn" (click)="editOrder(order, $event)" title="Editar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+          </svg>
+        </button>
+        <button class="icon-btn delete-btn" (click)="deleteOrder(order, $event)" title="Eliminar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+            <path
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+          </svg>
+        </button>
+      </div>
+      <div class="order-header">
+        <h2>Pedido #{{ order.id }}</h2>
+        <span class="order-date">{{ formatDate(order.createdAt) }}</span>
+      </div>
+      <div class="order-customer">
+        <strong>Cliente:</strong> {{ order.customerName }}
+      </div>
+      <div class="order-items">
+        <strong>Items:</strong> {{ order.items.length }}
+      </div>
+      <div class="order-total">
+        <strong>Total:</strong> {{ calculateTotal(order) | number:'1.2-2' }} $
+      </div>
+    </a>
+    }
+  </div>
   }
 </div>
 
+<app-modal [isOpen]="isModalOpen()"
+  [title]="modalMode() === 'create' ? 'Crear Nuevo Pedido' : modalMode() === 'edit' ? 'Editar Pedido' : 'Confirmar Eliminación'"
+  (close)="closeModal()">
+  @if (modalMode() === 'create' || modalMode() === 'edit') {
+  <form [formGroup]="orderForm" (ngSubmit)="submitOrder()" class="create-order-form">
+    <div class="form-section">
+      <label for="customerName" class="form-label">Nombre del Cliente</label>
+      <input id="customerName" type="text" formControlName="customerName" class="form-input"
+        placeholder="Ej: Juan Pérez"
+        [class.invalid]="orderForm.get('customerName')?.invalid && orderForm.get('customerName')?.touched">
+      @if (orderForm.get('customerName')?.invalid && orderForm.get('customerName')?.touched) {
+      <span class="error-msg">El nombre es requerido (mínimo 3 caracteres)</span>
+      }
+    </div>
+
+    <div class="items-header">
+      <h3>Items</h3>
+      <button type="button" class="btn-text" (click)="addItem()">+ Agregar Item</button>
+    </div>
+
+    <div formArrayName="items" class="items-list">
+      @for (item of items.controls; track i; let i = $index) {
+      <div [formGroupName]="i" class="item-row">
+        <div class="form-group small">
+          <input formControlName="sku" placeholder="SKU" class="form-input">
+        </div>
+        <div class="form-group medium">
+          <input formControlName="description" placeholder="Descripción" class="form-input">
+        </div>
+        <div class="form-group tiny">
+          <input type="number" formControlName="quantity" placeholder="Cant." class="form-input" min="1">
+        </div>
+        <div class="form-group small">
+          <input type="number" formControlName="unitPrice" placeholder="Precio" class="form-input" min="0" step="0.01">
+        </div>
+        @if (items.length > 1) {
+        <button type="button" class="btn-icon-danger" (click)="removeItem(i)" title="Eliminar item">&times;</button>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="modal-actions end">
+      <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="orderForm.invalid || loading()">
+        @if (loading()) { Guardando... } @else {
+        @if (modalMode() === 'create') { Crear Pedido } @else { Actualizar Pedido }
+        }
+      </button>
+    </div>
+  </form>
+  } @else {
+  <div class="delete-confirmation">
+    <p>¿Estás seguro de que deseas eliminar el pedido <strong>#{{ selectedOrder()?.id }}</strong> de <strong>{{
+        selectedOrder()?.customerName }}</strong>?</p>
+    <p class="warning-text">Esta acción no se puede deshacer.</p>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+      <button type="button" class="btn-danger" (click)="confirmDelete()" [disabled]="loading()">
+        @if (loading()) { Eliminando... } @else { Eliminar }
+      </button>
+    </div>
+  </div>
+  }
+</app-modal>

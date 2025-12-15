@@ -1,75 +1,107 @@
-import React from 'react'
+import { useEffect } from 'react';
 import './order-details.css'
+import { useAuthStore } from '../../login/store/auth.store';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useOrderStore } from '../store/order.store';
+import type { Order } from '../../models/Order';
+import type { OrderItem } from '../../models/OrderItem';
 
 export const OrderDetails = () => {
+
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuthStore();
+
+    const navigateToOrders = () => {
+        navigate('/orders');
+    }
+
+    const { orders } = useOrderStore();
+
+    const params = useParams<{ orderId: string }>();
+    const orderId = params.orderId;
+    const order = orders.find((order: Order) => order.id == Number(orderId));
+
+    useEffect(() => {
+        if (!order) {
+            navigate('/orders');
+            return;
+        }
+    }, [order]);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/login');
+            return;
+        }
+    }, [isAuthenticated]);
+
     return (
         <div className="order-detail-container">
 
-  // Loading
+            {/* Loading */}
             <div className="loading">
                 <p>Cargando pedido...</p>
             </div>
 
-  // Error
+            {/* Error */}
             <div className="error">
-                <p>// mensaje de error </p>
-                <a href="/orders" className="back-button">Volver a la lista</a>
+                <p>Error loading order</p>
+                <button onClick={navigateToOrders}>Volver a la lista</button>
             </div>
 
-  // Order Detail
+            {/* Order Detail */}
             <div className="order-detail">
                 <header className="detail-header">
-                    <a href="/orders" className="back-link">← Volver a la lista</a>
-                    <h1>Pedido #ID_DEL_PEDIDO</h1>
+                    <button onClick={navigateToOrders}>← Volver a la lista</button>
+                    <h1>Pedido #{order?.id}</h1>
                 </header>
 
                 <div className="order-info">
                     <div className="info-section">
                         <h2>Información del Cliente</h2>
-                        <p><strong>Nombre:</strong> NOMBRE_DEL_CLIENTE</p>
-                        <p><strong>Fecha de creación:</strong> FECHA_DEL_PEDIDO</p>
+                        <p><strong>Nombre:</strong> {order?.customerName}</p>
+                        <p><strong>Fecha de creación:</strong> {order?.createdAt}</p>
                     </div>
 
                     <div className="items-section">
                         <h2>Items del Pedido</h2>
-
-        // No items
-                        <p className="no-items">No hay items en este pedido</p>
-
-        // Items table
-                        <table className="items-table">
-                            <thead>
-                                <tr>
-                                    <th>SKU</th>
-                                    <th>Descripción</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-            // Repetir esta fila por cada item
-                                <tr>
-                                    <td>SKU_ITEM</td>
-                                    <td>DESCRIPCIÓN_ITEM</td>
-                                    <td>CANTIDAD</td>
-                                    <td>PRECIO_UNITARIO €</td>
-                                    <td>TOTAL_ITEM $</td>
-                                </tr>
-                            </tbody>
-
-                            <tfoot>
-                                <tr className="total-row">
-                                    <td colSpan={4}><strong>Total del Pedido</strong></td>
-                                    <td><strong>TOTAL_PEDIDO $</strong></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        {order?.items && order.items.length > 0 ? (
+                            <table className="items-table">
+                                <thead>
+                                    <tr>
+                                        <th>SKU</th>
+                                        <th>Descripción</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {order.items.map((item: OrderItem) => (
+                                        <tr key={item.sku}>
+                                            <td>{item.sku}</td>
+                                            <td>{item.description}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>$ {item.unitPrice}</td>
+                                            <td>$ {item.quantity * item.unitPrice}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                <tfoot>
+                                    <tr className="total-row">
+                                        <td colSpan={4}><strong>Total del Pedido</strong></td>
+                                        <td><strong>$ {order.items.reduce((total, item) => total + (item.quantity * item.unitPrice), 0)}</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        ) : (
+                            <p className="no-items">No hay items en este pedido</p>
+                        )}
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
+
+export default OrderDetails;
