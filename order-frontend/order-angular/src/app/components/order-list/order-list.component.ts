@@ -1,4 +1,4 @@
-import { Component, signal, inject, OnDestroy } from '@angular/core';
+import { Component, signal, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { OrderService } from '../../services/order.service';
@@ -19,7 +19,7 @@ import { UpdateOrderRequest } from '../../models/UpdateOrderRequest';
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
-export class OrderListComponent implements OnDestroy {
+export class OrderListComponent implements OnInit, OnDestroy {
   private orderService = inject(OrderService);
 
   private authService = inject(AuthService);
@@ -27,6 +27,7 @@ export class OrderListComponent implements OnDestroy {
 
   private streamSubscription?: Subscription;
   private reconnectTimeout?: ReturnType<typeof setTimeout>;
+  private pollingInterval?: ReturnType<typeof setInterval>;
   private isDestroyed = false;
   private retryCount = 0;
   private readonly maxRetries = 5;
@@ -47,9 +48,16 @@ export class OrderListComponent implements OnDestroy {
       customerName: ['', [Validators.required, Validators.minLength(3)]],
       items: this.fb.array([])
     });
+  }
 
+  ngOnInit(): void {
     this.loadOrders();
     this.connectToStream();
+
+    // Execute connectToStream every 5 seconds
+    this.pollingInterval = setInterval(() => {
+      this.connectToStream();
+    }, 5000);
   }
 
   get items(): FormArray {
@@ -203,6 +211,9 @@ export class OrderListComponent implements OnDestroy {
     if (this.reconnectTimeout) {
       clearTimeout(this.reconnectTimeout);
     }
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
     this.disconnectFromStream();
   }
 
@@ -224,6 +235,13 @@ export class OrderListComponent implements OnDestroy {
   }
 
   connectToStream(): void {
+    // Clean up existing subscription and timeout before connecting
+    this.disconnectFromStream();
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+      this.reconnectTimeout = undefined;
+    }
+
     this.isStreaming.set(true);
     this.streamSubscription = this.orderService.streamOrders().subscribe({
       next: (orders) => {
@@ -259,6 +277,7 @@ export class OrderListComponent implements OnDestroy {
   disconnectFromStream(): void {
     if (this.streamSubscription) {
       this.streamSubscription.unsubscribe();
+      this.streamSubscription = undefined;
       this.isStreaming.set(false);
     }
   }

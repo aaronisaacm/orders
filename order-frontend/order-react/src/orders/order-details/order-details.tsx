@@ -37,18 +37,6 @@ export const OrderDetails = () => {
 
     return (
         <div className="order-detail-container">
-
-            {/* Loading */}
-            <div className="loading">
-                <p>Cargando pedido...</p>
-            </div>
-
-            {/* Error */}
-            <div className="error">
-                <p>Error loading order</p>
-                <button onClick={navigateToOrders}>Volver a la lista</button>
-            </div>
-
             {/* Order Detail */}
             <div className="order-detail">
                 <header className="detail-header">
