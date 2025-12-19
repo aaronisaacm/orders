@@ -41,15 +41,16 @@ public class GlobalExceptionHandlerMiddleware
 
         switch (exception)
         {
-            case ArgumentException argEx:
-                response.StatusCode = (int)HttpStatusCode.BadRequest;
-                response.Message = argEx.Message;
-                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                break;
-
+            // Place the more specific ArgumentNullException before ArgumentException
             case ArgumentNullException argNullEx:
                 response.StatusCode = (int)HttpStatusCode.BadRequest;
                 response.Message = argNullEx.Message ?? "A required parameter was null";
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                break;
+
+            case ArgumentException argEx:
+                response.StatusCode = (int)HttpStatusCode.BadRequest;
+                response.Message = argEx.Message;
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 break;
 

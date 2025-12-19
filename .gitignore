@@ -1,2 +1,9 @@
-bin/
-obj/
+WebOrders.API/bin/
+WebOrders.API/obj/
+WebOrders.Data/bin/
+WebOrders.Data/obj/
+WebOrders.Service/bin/
+WebOrders.Service/obj/
+WebOrders/.vs/
+WebOrders.API/bin/
+WebOrders.API/obj/

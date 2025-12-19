@@ -96,6 +96,9 @@ app.UseRateLimiter();
 // Health endpoint
 app.MapHealthChecks("/health");
 
+// Map auth endpoints (must be before order endpoints)
+app.MapAuthEndpoints();
+
 // Map order endpoints
 app.MapOrderEndpoints();
 
